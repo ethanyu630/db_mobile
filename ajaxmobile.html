@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<title>行動ajax連結資料庫</title>
+<link href="jquery-mobile/jquery.mobile-1.4.5.css" rel="stylesheet" type="text/css">
+<link href="jquery-mobile/jquery.mobile.structure-1.4.5.min.css" rel="stylesheet" type="text/css">
+<script src="jquery-mobile/jquery-2.1.4.js" type="text/javascript"></script>
+<script src="jquery-mobile/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+<script >
+	var book_id=0;
+
+	function get_book_info(mode){	
+         	
+		$.get("get_book_info.php",{book_id:book_id,mode:mode},function(data){
+			book_id = data.book_id;
+			$("#bookimg").attr("src","./img/"+data.image_name);
+			$("#bookmsg").html(data.description);
+		},"json");	
+	}
+</script>
+</head> 
+<body onload="javascript:get_book_info('next')"> 
+
+<div data-role="page" id="home">
+	<div data-role="header" data-postition="fixed">
+    	<h1>行動商品型錄</h1>
+	</div>
+	<div data-role="content">
+      	<img src="img/mobile_store.jpg" width="100%">		
+			<a href="#intro" data-rel="dialog" data-role="button" data-icon="arrow-r">快樂出版社簡介</a></li>
+            <a href="#book" data-role="button" data-icon="arrow-r">書籍介紹</a>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<h4>快樂出版社</h4>
+	</div>
+</div>
+
+<div data-role="page" id="intro">
+	<div data-role="header">
+		<h1>快樂出版簡介</h1>
+	</div>
+	<div data-role="content">	
+		<p>快樂出版社專門發行各類電腦書籍，包刮 office,程式設計,繪圖...等系列圖書，若您有任何問題，請來電與我們聯繫。</p>
+	</div>
+</div>
+
+<div data-role="page" id="book">
+	<div data-role="header">
+		<h1>書籍介紹</h1>
+	</div>
+	<div data-role="content">	
+		<img id="bookimg" width="100%">
+        <p id="bookmsg"/>
+	</div>
+	<div data-role="footer" data-position="fixed">
+    	<div data-role="navbar">
+			<ul>
+        		<li><a href="#home" class="ui-btn-active ui-state-persist" >回首頁</a></li>
+            	<li><a href="javascript:get_book_info('prev')">上一個</a></li>
+            	<li><a href="javascript:get_book_info('next')">下一個</a></li>            
+        	</ul>    
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

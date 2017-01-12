@@ -1,0 +1,159 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<title>jQuery Mobile 網路應用程式</title>
+<link href="jquery-mobile/jquery.mobile-1.4.5.css" rel="stylesheet" type="text/css">
+<script src="jquery-mobile/jquery-2.1.4.js" type="text/javascript"></script>
+<script src="jquery-mobile/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+</head> 
+
+
+<script language="Javascript">
+	var book_id=0;
+
+	function get_book_info(mode){	
+         	
+		$.get("get_book_info.php",{book_id:book_id,mode:mode},function(data){
+			book_id = data.book_id;
+			$("#bookimg").attr("src","./img/"+data.image_name);
+			$("#bookmsg").html(data.description);
+		},"json");	
+	}
+<!-- $(function(){ -->
+<!-- $('#showprev').bind('click', showprev); // 上一筆 -->
+<!-- $('#shownext').bind('click', shownext); // 下一筆 -->
+<!-- }); -->
+<!-- var index=0; // 目前書籍的索引 -->
+<!-- var curImgSrc,curBook; // 目前取得的書籍圖檔名、書籍名稱 -->
+<!-- // 書籍圖片 -->
+
+<!-- var aryBookSrc = new Array("htc01.jpg", "htc02.jpg", "htc03.jpg"); -->
+<!-- // 書名 -->
+
+<!-- var aryBookName = new Array("The New HTC One","HTC BUTTERFLY Sion","HTC 8X Windows Phone" ); -->
+<!-- function showprev() { // 上一筆 -->
+<!-- index --; -->
+<!-- if (index<0){index=2;} // 可循環 -->
+<!-- curImgSrc="images/" + aryBookSrc[index]; // 目前取得的圖檔名稱 -->
+<!-- curBook=aryBookName[index]; // 目前取得的書籍名稱 -->
+<!-- $("#pimg").attr("src",curImgSrc); // 動態顯示圖片 -->
+<!-- $("#pname").text(curBook); // 動態顯示書籍名稱 -->
+<!-- } -->
+<!-- function shownext() { // 下一筆 -->
+<!-- index ++; -->
+<!-- if (index>2){index=0;} // 可循環 -->
+<!-- curImgSrc="images/" + aryBookSrc[index]; -->
+<!-- curBook=aryBookName[index]; -->
+<!-- $("#pimg").attr("src",curImgSrc); -->
+<!-- $("#pname").text(curBook); -->
+<!-- } -->
+
+</script>
+<script type="text/javascript">
+function checkserAgent(){
+var userAgentInfo=navigator.userAgent;
+var userAgentKeywords=new Array("Android", "iPhone" ,"SymbianOS", "WindowsPhone", "iPad", "iPod", "MQQBrowser");
+var flag=false;
+if(userAgentInfo.indexOf("Windows NT")==-1){
+flag=true;
+}
+return flag;
+}
+if(checkserAgent()){
+document.location.href="./iphone.html";
+}
+</script>
+
+<style>
+
+.logo{
+width: 200px;
+margin-top:0px;
+margin-right:auto;
+margin-bottom:0px;
+margin-left:auto;
+}
+
+#pname{
+	font-size:13px;
+font-style:normal;
+font-weight:bold;
+color: #03c;
+text-align:center;
+}
+.productcover{
+	width:260px;
+margin-top:0px;
+margin-right:auto;
+margin-bottom:0px;
+margin-left:auto;
+box-shadow:2px 2px 2px 2px #999;
+border-radius:10px;
+	}
+
+</style>
+<body onload="javascript:get_book_info('htcnext')"> 
+
+<div data-role="page" id="home">
+	<div data-role="header">
+		<h1>第一頁</h1>
+	</div>
+	<div data-role="content">	
+    <div class="logo">
+		<!-- <p><img src="images/logo.jpg" ></p> -->
+     </div>   
+        <div class="ui-grid-a">
+         <div class="ui-block-a"><a href="http://www.htc.com/tw/" rel="external" data-role="button" data-theme="b" data-icon="gear">htc</a></div>
+        <!-- <div class="ui-block-a"><a href="http://m.htc.com/en/" rel="external" data-role="button" data-theme="b" data-icon="gear">HTC</a></div> -->
+         <div class="ui-block-b"><a href="http://www.htc.com/tw/support/" target="_blank" data-role="button" data-theme="b"
+data-icon="star">Support</a></div>
+    </div>		
+	</div>
+	<div data-role="footer" data-position="fixed">
+             <div data-role="navbar">
+                <ul>
+                <li><a href="#home" class="ui-btn-active ui-state-persist" data-icon="home" data-transition="flip">Home</a> </li>
+                <li><a href="#book" data-icon="info" data-transition="flip">New Product</a> </li>
+                <li><a href="#abuot" data-icon="search" data-rel="dialog" data-transition="pop">About</a> </li>
+                </ul>
+                </div>
+              </div>
+    </div>
+
+<div data-role="page" id="book">
+	<div data-role="header">
+		<h1>HTC資料</h1>
+	</div>
+	<div data-role="content">	
+		<img id="bookimg" width="100%">
+        <p id="bookmsg"/>
+	</div>
+	<div data-role="footer" data-position="fixed">
+    	<div data-role="navbar">
+			<ul>
+        		<li><a href="#home" class="ui-btn-active ui-state-persist" >回首頁</a></li>
+            	<li><a href="javascript:get_book_info('htcprev')">上一個</a></li>
+            	<li><a href="javascript:get_book_info('htcnext')">下一個</a></li>            
+        	</ul>    
+		</div>
+	</div>
+</div>
+
+<div data-role="page" id="abuot">
+	<div data-role="header">
+		<h1>第三頁</h1>
+	</div>
+	<div data-role="content">	
+		<h3>Founded in 1997, HTC built its reputation as the behind-the-scenes designer and manufacturer of many of the most
+popular OEM-branded mobile devices on the market.</h3>
+	</div>
+	<div data-role="footer" data-position="fixed">
+            
+	</div>
+</div>
+
+
+
+</body>
+</html>
